@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByteFest 2K25 - Innovate. Code. Connect.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+
+
+</head>
+
+<body x-data="{
+    mobileMenuOpen: false,
+    // initial countdown values can be dynamically computed or updated later
+    countdownDays: 5,
+    countdownHours: 10,
+    countdownMinutes: 10,
+    countdownSeconds: 52
+}">
+  <div id="particles-js"></div>
+  <canvas id="canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
+  <!-- Improved Header with Hide-on-Scroll -->
+  <header x-data="{
+    scrolledDown: false,
+    lastScroll: 0,
+    mobileMenuOpen: false,
+    handleScroll() {
+      const current = window.pageYOffset || document.documentElement.scrollTop;
+      this.scrolledDown = current > this.lastScroll && current > 100;
+      this.lastScroll = current <= 0 ? 0 : current;
+    }
+  }" @scroll.window="handleScroll"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 nav-transparent" :class="{
+    'opacity-0 -translate-y-full pointer-events-none': scrolledDown,
+    'opacity-100 translate-y-0 nav-transparent': !scrolledDown,
+    'nav-glass shadow-md': (window.pageYOffset || document.documentElement.scrollTop) > 10
+  }">
+
+    <div class="container mx-auto px-4 flex justify-between items-center transition-all duration-300 py-3">
+      <!-- Logo -->
+      <a href="#hero" class="text-2xl font-bold text-blue-600 flex items-center space-x-2">
+        <i class="fas fa-microchip text-3xl"></i>
+        <span class="flex items-baseline">
+          <span>ByteFest</span>
+          <span class="text-white ml-1">2K25</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#overview" class="text-white hover:text-blue-300 font-medium">Overview</a>
+        <a href="#schedule" class="text-white hover:text-blue-300 font-medium">Schedule</a>
+        <a href="#highlights" class="text-white hover:text-blue-300 font-medium">Highlights</a>
+        <a href="#contact" class="text-white hover:text-blue-300 font-medium">Contact</a>
+      </nav>
+
+      <!-- Mobile Toggle Button -->
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-gray-700 focus:outline-none">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobileNav"
+      class="md:hidden fixed top-0 right-0 h-full w-64 mobile-nav-style p-6 z-50 transition-all duration-300"
+      x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" x-transition:enter="transform ease-out duration-300"
+      x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+      x-transition:leave="transform ease-in duration-200" x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="translate-x-full">
+      <div class="flex justify-end">
+        <button @click="mobileMenuOpen = false" class="text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-6 mt-8">
+        <a href="#overview" @click="mobileMenuOpen = false" class="font-medium">Overview</a>
+        <a href="#schedule" @click="mobileMenuOpen = false" class="font-medium">Schedule</a>
+        <a href="#highlights" @click="mobileMenuOpen = false" class="font-medium">Highlights</a>
+        <a href="#contact" @click="mobileMenuOpen = false" class="font-medium">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- AOS already included above; initialized in js/app.js -->
+
+  <!-- Hero Section with Slideshow and Countdown -->
+  <section x-data="{ 
+  currentIndex: 0, 
+  images: [
+    'images/backgrounds/main_1.jpeg',
+    'images/backgrounds/main_2.jpg',
+    'images/backgrounds/main_3.jpg',
+    'images/backgrounds/main_4.jpg'
+  ],
+  countdownDate: new Date('June 09, 2025 00:00:00').getTime(),
+  countdownDays: 5,
+  countdownHours: 10,
+  countdownMinutes: 10,
+  countdownSeconds: 52,
+  startSlider() {
+    setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    }, 4000);
+  },
+  startCountdown() {
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = this.countdownDate - now;
+      this.countdownDays = Math.floor(distance / (1000 * 60 * 60 * 24));
+      this.countdownHours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      this.countdownMinutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      this.countdownSeconds = Math.floor((distance % (1000 * 60)) / 1000);
+    }, 1000);
+  }
+}" x-init="startSlider(); startCountdown()"
+    class="relative w-full h-screen bg-cover bg-center bg-no-repeat overflow-hidden"
+    :style="'background-image: url(' + images[currentIndex] + ')'">
+
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+    <div class="relative z-10 container mx-auto px-4 py-28 text-center text-white flex flex-col justify-center h-full"
+      data-aos="fade-up">
+
+      <h1
+        class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-100 mb-6 flex items-center justify-center gap-3 transition-transform duration-300 ease-in-out hover:scale-105 pt-6 md:pt-10">
+        <img src="images/college_logo.png" alt="College Logo" class="md:h-24" id="clglogo" />
+        M.B.E. Society's College of Engineering, Ambajogai
+      </h1>
+
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6" data-decode="ByteFest 2K25">ByteFest 2K25</h2>
+
+      <p class="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-10">
+        Where Technology Meets Creativity – The Ultimate College Tech Festival
+      </p>
+
+      <div class="text-base md:text-lg font-medium mb-10">
+        09 & 10 June 2025 | College of Engineering Ambajogai Campus
+      </div>
+
+      <!-- Notice Marquee -->
+      <div class="notice-container">
+        <div class="notice-wrapper">
+          <div class="notice-track" id="noticeTrack">
+            <span>• Bytefest 2K25 is on 9 & 10 June </span>
+            <span>• Registration for participating in challenges is open now </span>
+            <span>• Deadline for registration is 7 June </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown Timer -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12 text-white">
+        <div class="bg-blue-600 bg-opacity-80 p-4 w-20 md:w-24 rounded-lg shadow-lg">
+          <div class="text-2xl md:text-4xl font-bold" x-text="countdownDays">0</div>
+          <div class="text-sm">Days</div>
+        </div>
+        <div class="bg-blue-600 bg-opacity-80 p-4 w-20 md:w-24 rounded-lg shadow-lg">
+          <div class="text-2xl md:text-4xl font-bold" x-text="countdownHours">0</div>
+          <div class="text-sm">Hours</div>
+        </div>
+        <div class="bg-blue-600 bg-opacity-80 p-4 w-20 md:w-24 rounded-lg shadow-lg">
+          <div class="text-2xl md:text-4xl font-bold" x-text="countdownMinutes">0</div>
+          <div class="text-sm">Minutes</div>
+        </div>
+        <div class="bg-blue-600 bg-opacity-80 p-4 w-20 md:w-24 rounded-lg shadow-lg">
+          <div class="text-2xl md:text-4xl font-bold" x-text="countdownSeconds">0</div>
+          <div class="text-sm">Seconds</div>
+        </div>
+      </div>
+
+      <a href="#overview"
+        class="inline-block text-white font-bold py-2 px-3 rounded-full transition-transform duration-300 hover:scale-105">
+        Learn More
+      </a>
+    </div>
+  </section>
+
+  <!-- Event Overview Section -->
+  <section id="overview" class="py-20 bg-cover bg-center bg-no-repeat relative bg-overview" data-parallax="bg">
+    <canvas id="canvas-overview" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></canvas>
+    <div class="absolute inset-0 bg-black opacity-70 section-overlay"></div>
+
+      <div class="relative z-10 container mx-auto px-4 text-white">
+        <!-- Heading with Logo -->
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 relative flex items-center justify-center" data-decode="Event Overview"
+          data-aos="fade-up">
+        <!-- <img src="https://your-cdn.com/bytefest-logo-small.png"
+                alt="ByteFest Logo"
+                class="w-10 h-10 mr-3 object-contain"
+            /> -->
+        Event Overview
+        <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-600 mt-2"></span>
+      </h2>
+
+      <div class="flex flex-col md:flex-row items-center">
+        <!-- Left content -->
+        <div class="md:w-1/2 p-6">
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-2 flex items-center">
+              <i class="fas fa-calendar-alt text-blue-600 mr-3"></i>
+              Date & Time
+            </h3>
+            <p class="text-gray-300">June 9, 2025 | 9:00 AM - 8:00 PM</p>
+          </div>
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-2 flex items-center">
+              <i class="fas fa-map-marker-alt text-blue-600 mr-3"></i>
+              Venue
+            </h3>
+            <p class="text-gray-300">M.B.E. Society's College of Engineering Ambajogai, CSE Department.</p>
+          </div>
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-2 flex items-center">
+              <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+              🚀 ByteFest 2K25 – Beyond Tomorrow
+            </h3>
+            <p class="text-gray-300 mb-4">
+              ByteFest 2K25 is a two-day national tech festival celebrating innovation, creativity, and competition.
+              From coders and creators to gamers and speakers, there’s something for everyone.
+            </p>
+            <p class="text-gray-300 mb-4">
+              This year’s theme, "Beyond Tomorrow", explores future-shaping tech like AI, blockchain, and AR/VR.
+
+
+            </p>
+            <div class="text-gray-300 mb-4">
+              <p class="font-semibold mb-2">🔥 Key Events:</p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>💻 <strong>Coding Challenge</strong> – Aptitude + coding rounds (C/C++/Python/Java)</li>
+                <li>🎤 <strong>Tech Talk</strong> – 7-min tech talk with PPT</li>
+                <!-- <li>💡 <strong>Tech Talk</strong> – 4-member team, topic given 5 mins before</li> -->
+                <li>⚔️ <strong>Tech Debate</strong> – 4-member team, topic given 5 mins before</li>
+                <li>🐞 <strong>Debug Quest</strong> – Individual code error fixing (C/Python)</li>
+                <li>🔐 <strong>Escape Room</strong> – 3-member team, solve Python-based puzzles</li>
+                <li>🎮 <strong>BGMI Showdown</strong> – 4-player squad, 40-min match</li>
+                <li>🖼️ <strong>Poster Presentation</strong> – Handmade/virtual (printed only); tech & non-tech topics
+                </li>
+              </ul>
+            </div>
+
+            <p class="text-red-300 mb-5"><b>Register now and be part of the future!</b></p>
+          </div>
+          <a href="registration.html" class="btn-primary">
+            Register Now
+          </a>
+
+        </div>
+
+        <!-- Right image -->
+        <div class="md:w-1/2 p-6">
+          <div class="rounded-lg overflow-hidden shadow-xl">
+            <img src="images/backgrounds/overview-teamwork.jpg" alt="ByteFest Event" class="w-full h-auto rounded-lg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Schedule Section -->
+  <section id="schedule" class="py-20 relative text-white bg-schedule" data-parallax="bg">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-60 section-overlay"></div>
+
+    <div class="container mx-auto px-4 relative z-10" x-data="{ activeDay: 1 }">
+      <h2 class="text-4xl font-bold text-center mb-16 relative" data-aos="fade-up" data-decode="Event Schedule">
+        Event Schedule
+        <span class="block w-24 h-1 bg-blue-600 mx-auto mt-4"></span>
+      </h2>
+
+      <!-- Day Toggle Buttons -->
+      <div class="flex justify-center gap-2 mb-12" data-aos="fade-up" data-aos-delay="100">
+        <button @click="activeDay = 1"
+          :class="{'bg-blue-600 text-white': activeDay === 1, 'bg-gray-200 text-gray-700': activeDay !== 1}"
+          class="px-6 py-2 rounded-l-lg font-semibold transition duration-300">Day 1</button>
+        <button @click="activeDay = 2"
+          :class="{'bg-blue-600 text-white': activeDay === 2, 'bg-gray-200 text-gray-700': activeDay !== 2}"
+          class="px-6 py-2 rounded-r-lg font-semibold transition duration-300">Day 2</button>
+      </div>
+
+      <!-- Schedule Content -->
+      <div class="max-w-3xl mx-auto space-y-8 px-4">
+
+        <!-- Day 1 -->
+        <div x-show="activeDay === 1" class="space-y-8" x-transition>
+          <template x-for="(event, index) in [
+  { 
+    title: 'Opening Ceremony', 
+    desc: 'Welcome address and introduction to ByteFest 2K25.', 
+    location: 'Seminar Hall 2, CSE Department' 
+  },
+  
+  { 
+    title: 'Tech Talk Presentations', 
+    desc: 'Participants deliver a 7-minute speech with PPT on a tech topic of their choice.', 
+    location: 'Seminar Hall 2, CSE Department' 
+  },
+  { 
+    title: 'Tech Debate – Clash of Intellect', 
+    desc: '4-member teams debate on topics given 5 minutes before the round.', 
+    location: 'Seminar Hall 2, CSE Department' 
+  },
+  { 
+    title: 'Coding Challenge', 
+    desc: 'Round 1: Aptitude Test   |   Round 2: Coding Competition (C/C++/Python/Java).', 
+    location: 'Computer Lab, CSE Department' 
+  },
+  { 
+    title: 'Debug the Code', 
+    desc: 'Identify and fix errors in code under time pressure. Language: C or Python.', 
+    location: 'Computer Lab, CSE Department' 
+  },
+  { 
+    title: 'Poster Exhibition', 
+    desc: 'Present your ideas. Inspire through design.', 
+    location: 'CSE Department' 
+  }
+]" :key="index">
+
+            <div class="schedule-item bg-white bg-opacity-20 p-6 rounded-lg shadow-lg backdrop-blur-md">
+              <h3 class="text-2xl font-bold mb-2" x-text="event.title"></h3>
+              <p class="mb-4 text-gray-200" x-text="event.desc"></p>
+              <div class="text-sm text-gray-300"><i class="fas fa-map-pin mr-2"></i><span
+                  x-text="event.location"></span></div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Day 2 -->
+        <div x-show="activeDay === 2" class="space-y-8" x-transition>
+          <template x-for="(event, index) in [
+  { 
+    title: 'Escape Room – Tech Edition', 
+    desc: '3-member teams solve Python-based riddles and puzzles across 3 rooms in 15 minutes.', 
+    location: 'Computer Lab, CSE Department' 
+  },
+  { 
+    title: 'BGMI Showdown – Last Squad Standing', 
+    desc: '4-player squads battle it out in a 40-minute custom match for the ultimate Chicken Dinner.', 
+    location: 'Lecture Hall 4 & 5, CSE Department' 
+  },
+ 
+  { 
+    title: 'Hackathon Submission & Demo', 
+    desc: '36-hour Hackathon ends. Teams submit and present their prototypes for final evaluation.', 
+    location: 'Computer Lab, CSE Department' 
+  },
+          { 
+            title: 'Closing Ceremony & Awards', 
+            desc: 'Honoring winners and participants. Prize distribution and grand finale to wrap up ByteFest 2K25.', 
+            location: 'Main Auditorium' 
+          }
+]" :key="index">
+
+            <div class="schedule-item bg-white bg-opacity-20 p-6 rounded-lg shadow-lg backdrop-blur-md">
+              <h3 class="text-2xl font-bold mb-2" x-text="event.title"></h3>
+              <p class="mb-4 text-gray-200" x-text="event.desc"></p>
+              <div class="text-sm text-gray-300"><i class="fas fa-map-pin mr-2"></i><span
+                  x-text="event.location"></span></div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AOS Animation Library duplicate removed; handled above and initialized in js/main.js -->
+
+
+
+  <!-- Highlights Section -->
+  <section id="highlights" class="py-20 relative text-white bg-highlights" data-parallax="bg">
+    <canvas id="canvas-highlights" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></canvas>
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm section-overlay"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <!-- Section Title -->
+      <h2 class="text-4xl font-bold text-center mb-4" data-decode="Event Highlights">Event Highlights</h2>
+      <div class="w-20 h-1 bg-blue-600 mx-auto mb-12 rounded-full"></div>
+
+      <!-- Highlights Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Hackathon -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/logos/logo_hackathon.jpg" alt="Hackathon"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Hackathon</h3>
+            <p class="text-gray-200 mb-4">Put your coding skills to the test in our flagship 48-hour hackathon with
+              exciting prizes and certifications.</p>
+
+            <div class="flex justify-between items-center">
+              <a href="registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="hackathon.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn
+                more <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Coding Challenge -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/logos/event-card-coding.avif" alt="Coding Challenge"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Coding Challenge</h3>
+            <p class="text-gray-200 mb-4">Test your logic and coding skills in a race against time. Prove you're the
+              fastest and smartest!</p>
+
+            <div class="flex justify-between items-center">
+              <a href="registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="coding-challenge.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn more <i
+                  class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Tech Talks / Public Speech -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/logos/logo_tech_talk.jpg" alt="Public Speech"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Tech Talks</h3>
+            <p class="text-gray-200 mb-4">Inspire minds by expressing your ideas on tech and innovation with confidence
+              and clarity.</p>
+            <div class="flex justify-between items-center">
+              <a href="registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="tech-talk.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn
+                more <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Tech Debate (Team) -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/logos/logo_debate.webp" alt="Tech Debate"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Tech Debate (Team)</h3>
+            <p class="text-gray-200 mb-4">Battle it out on trending tech topics. Speak up, stand out, and win minds.</p>
+            <div class="flex justify-between items-center">
+              <a href="registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="tech-debate.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn
+                more <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Debug the Code -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/logos/logo_debug.avif" alt="Debug the Code"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Debug the Code</h3>
+            <p class="text-gray-200 mb-4">Put your debugging skills to the test! Hunt down bugs in real-time code
+              snippets.</p>
+            <div class="flex justify-between items-center">
+              <a href="registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="debug-quest.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn
+                more <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Tech Game – Escape Room -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/logos/logo_escape_room.jpg" alt="Escape Room"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Tech Game – Escape Room</h3>
+            <p class="text-gray-200 mb-4">Dive into a thrilling tech-themed escape room! Solve puzzles and crack codes
+              before time runs out.</p>
+            <div class="flex justify-between items-center">
+              <a href="Registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="escape-room.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn
+                more <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Gaming Event (BGMI) -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/backgrounds/logo_bgmi.jpg" alt="BGMI"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Gaming Event (BGMI)</h3>
+            <p class="text-gray-200 mb-4">Join the battleground and compete to be the last squad standing in our BGMI
+              tournament. Chicken dinner awaits!</p>
+            <div class="flex justify-between items-center">
+              <a href="Registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="bgmi-showdown.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn
+                more <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Poster Presentation -->
+        <div
+          class="highlight-card card-panel rounded-2xl overflow-hidden group">
+          <div class="overflow-hidden">
+            <img src="images/posters/poster logo.jpg" alt="Poster Presentation"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">Poster Presentation</h3>
+            <p class="text-gray-200 mb-4">Showcase your creativity and research skills! Participate in our Poster
+              Presentation
+              to visually communicate innovative ideas and discoveries.</p>
+            <div class="flex justify-between items-center">
+              <a href="Registration.html"
+                class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Register Now <i
+                  class="fas fa-edit ml-1"></i></a>
+
+              <a href="poster-presentation.html" class="text-blue-400 font-medium hover:text-blue-600 transition-colors">Learn more
+                <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+  <!-- Venue Map Section -->
+  <!-- … -->
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-900 text-white relative bg-contact">
+    <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm section-overlay"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <!-- Section Title -->
+      <h2 class="text-4xl font-bold text-center text-white mb-4 relative" data-decode="Contact Us">
+        Contact Us
+        <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-500 mt-2"></span>
+      </h2>
+      <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+        Have questions about <strong>ByteFest 2025</strong>? Reach out to our team — we’re here to help!
+      </p>
+
+      <!-- Contact Cards -->
+      <div class="flex flex-col md:flex-row md:-mx-4 space-y-8 md:space-y-0">
+        <!-- Email Card -->
+        <div
+          class="card-panel rounded-2xl p-6 md:mx-4 flex-1 transition duration-300">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">Email</h3>
+          <ul class="space-y-2 text-gray-200">
+            <li><a href="mailto:vedant.sawaleshwarkar@gmail.com"
+                class="hover:text-blue-400">vedant.sawaleshwarkar@gmail.com</a></li>
+            <li><a href="mailto:sachindasture1252@gmail.com" class="hover:text-blue-400">sachindasture1252@gmail.com</a>
+            </li>
+            <li><a href="mailto:vaibhavwaghalkar@gmail.com" class="hover:text-blue-400">vaibhavwaghalkar@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Phone Card -->
+        <div
+          class="card-panel rounded-2xl p-6 md:mx-4 flex-1 transition duration-300">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">Phone <i
+              class="fab fa-whatsapp text-green-400 ml-2"></i></h3>
+          <ul class="space-y-2 text-gray-200">
+            <li>Vedant Sawaleshwarkar – <a href="https://wa.me/918010498335" target="_blank"
+                class="hover:text-green-400">8010498335</a></li>
+            <li>Sachin Dasture – <a href="https://wa.me/919529776726" target="_blank"
+                class="hover:text-green-400">9529776726</a></li>
+            <li>Vaibhav Waghalkar – <a href="https://wa.me/919356630640" target="_blank"
+                class="hover:text-green-400">9356630640</a></li>
+          </ul>
+        </div>
+
+        <!-- Address Card -->
+        <div
+          class="card-panel rounded-2xl p-6 md:mx-4 flex-1 transition duration-300">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">Address</h3>
+          <p class="text-gray-200">
+            M.B.E. Society’s College of Engineering,<br>
+            Ambajogai – 431517
+          </p>
+        </div>
+      </div>
+
+      <!-- Follow Us Section -->
+      <div class="mt-16 text-center">
+        <h3 class="text-2xl font-semibold text-white mb-6">Follow Us On</h3>
+        <div class="flex justify-center space-x-10 text-4xl">
+          <a href="https://www.linkedin.com/company/bytefes/" target="_blank" class="text-blue-400 hover:scale-125 transform transition-transform duration-300">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.instagram.com/byte.fest2k25" target="_blank" class="text-pink-500 hover:scale-125 transform transition-transform duration-300">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://chat.whatsapp.com/FINFE2pMxO2A9CIVbnb2Le" target="_blank" class="text-green-400 hover:scale-125 transform transition-transform duration-300">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://youtube.com/@bytefest-2k25?si=4zNjaSO-YXgZseRx" target="_blank" class="text-red-500 hover:scale-125 transform transition-transform duration-300">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white pt-12 relative z-20">
+    <div class="container mx-auto px-4 pb-8">
+      <div class="flex flex-col md:flex-row justify-between">
+        <div class="mb-8 md:mb-0">
+          <a href="javascript:void(0)" class="text-2xl font-bold text-white flex items-center">
+            <span class="text-3xl mr-2"><i class="fas fa-microchip"></i></span>
+            <span>ByteFest<span class="text-blue-400">2K25</span></span>
+          </a>
+          <p class="mt-4 max-w-xs text-gray-400">
+            The ultimate college technology festival celebrating innovation and creativity.
+          </p>
+          <br>
+          <div class="mt-2">
+            <p class="font-medium text-white">Developed by:</p>
+
+            <p class="font-medium text-gray-400">
+              Vaibhav Waghalkar –
+              <a href="mailto:vaibhavwaghalkar@gmail.com" class="text-blue-400 hover:underline">
+                vaibhavwaghalkar@gmail.com
+              </a>
+            </p>
+
+            <p class="font-medium text-gray-400">
+              Vedant Sawaleshwarkar –
+              <a href="mailto:vedant.sawaleshwarkar@gmail.com" class="text-blue-400 hover:underline">
+                vedant.sawaleshwarkar@gmail.com
+              </a>
+            </p>
+
+
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li><a href="#overview" class="text-gray-400 hover:text-white transition duration-300">Overview</a></li>
+              <li><a href="#schedule" class="text-gray-400 hover:text-white transition duration-300">Schedule</a></li>
+              <li><a href="#highlights" class="text-gray-400 hover:text-white transition duration-300">Highlights</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Resources</h3>
+            <ul class="space-y-2">
+              <li><a href="faq.html" class="text-gray-400 hover:text-white transition duration-300">FAQs</a></li>
+              <li><a href="code-of-conduct.html" class="text-gray-400 hover:text-white transition duration-300">Code of Conduct</a></li>
+              <li><a href="privacy-policy.html" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg">Faculty Organizer</h4>
+            <br>
+            <p class="font-bold text-white transition duration-300">Prof. Sushil V. Kulkarni</p>
+            <p class="font-bold text-white transition duration-300">Prof. Shivcharan S. Waghmare</p>
+            <p class="font-bold text-white transition duration-300">Prof. Abhijeet S. Dahiwade</p>
+            <!-- <p class="font-bold text-white transition duration-300">Prof. Pavan V. Pawar</p>
+          <p class="font-bold text-white transition duration-300">Prof. Pournima V. Maske</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom rights section -->
+    <div class="border-t border-gray-800 py-4 text-center">
+      <p class="text-gray-500">© 2K25 ByteFest. | All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+
+</body>
+
+</html>

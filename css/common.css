@@ -1,0 +1,315 @@
+/* Common CSS for all ByteFest 2K25 pages */
+
+/* Notice marquee styles */
+.notice-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.notice-container h2 {
+  color: #fff;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.notice-wrapper {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  opacity: 1;
+}
+
+.notice-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollLeft 20s linear infinite;
+  font-size: 1rem;
+  padding-left: 100%;
+}
+
+.notice-track span {
+  margin-right: 50px;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#footer_rights {
+  align-items: center;
+}
+
+/* Common page styles */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: white;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 20, 0.7);
+  z-index: 0;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
+
+/* Section background helpers (centralized, replaces inline page styles) */
+.bg-overview { 
+  background: url('../images/backgrounds/Overview_bg.jpg') center / cover no-repeat fixed; 
+  min-height: 100vh;
+  position: relative;
+}
+.bg-schedule { 
+  background: url('../images/backgrounds/hilights_bg.jpg') center / cover no-repeat fixed; 
+  min-height: 100vh;
+  position: relative;
+}
+.bg-highlights { 
+  background: url('../images/backgrounds/highlights_bg.jpeg') center / cover no-repeat fixed; 
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Enhanced dark overlay for better text readability */
+.bg-overview::before,
+.bg-schedule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+.bg-overview > *,
+.bg-schedule > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Contact section background */
+.bg-contact { 
+  background: url('https://img.freepik.com/premium-vector/cyber-digital-background-furturistic-technology-game-tech-background-technology-event-post_991099-103.jpg') center / cover no-repeat fixed; 
+  min-height: 100vh;
+}
+/* Prevent overlays from blocking clicks below */
+.section-overlay { pointer-events: none; }
+
+/* Ensure content shows even if AOS fails to init (fallback) */
+.bg-overview [data-aos],
+.bg-schedule [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Accent link (replaces inline color styles) */
+.link-accent { color: #60a5fa; }
+.link-accent:hover { color: #3b82f6; }
+
+/* Shared content layout helpers */
+.content-narrow { max-width: 900px; margin: 2rem auto 4rem auto; padding: 0 1rem; position: relative; z-index: 1; }
+
+/* Enhanced hover effects for event cards */
+.highlight-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.highlight-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.highlight-card:hover .group-hover\:scale-105 {
+  transform: scale(1.1);
+}
+
+/* Smooth image transitions */
+.highlight-card img {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced button hover effects */
+.btn-primary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Global body styles */
+body, html { 
+  height: 100%; 
+  margin: 0; 
+  font-family: 'Inter', sans-serif; 
+  color: white; 
+  overflow-x: hidden; 
+}
+
+/* Page header styles */
+.page-header { text-align: center; margin-bottom: 2rem; }
+.page-header-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.3rem; text-shadow: 0 0 8px rgba(0,0,0,0.8); }
+.page-header-subtitle { color: #dcdcdc; font-size: 1.25rem; font-weight: 500; text-shadow: 0 0 6px rgba(0,0,0,0.7); }
+
+/* Generic panel card */
+.panel { background: rgba(10, 10, 40, 0.3); border-radius: 1rem; padding: 2rem 2.5rem; box-shadow: 0 0 15px rgba(0,0,0,0.5); line-height: 1.6; color: #d1d5db; }
+.panel h2 { color: #a5b4fc; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.5rem; text-shadow: none; }
+.panel p, .panel ul { margin-bottom: 1rem; font-size: 1.1rem; }
+.panel ul { padding-left: 1.5rem; list-style-type: disc; }
+
+@media (max-width: 768px) {
+  .panel { padding: 1.5rem 1.5rem; }
+  .page-header-title { font-size: 2rem; }
+  .page-header-subtitle { font-size: 1rem; }
+}
+
+/* Event page backgrounds */
+.bg-hackathon { background: url('../images/backgrounds/hackathon_bg.jpg') center / cover fixed no-repeat; }
+.bg-coding { background: url('../images/backgrounds/coding_bg.jpg') center / cover fixed no-repeat; }
+.bg-debate { background: url('../images/backgrounds/debate_bg.jpg') center / cover fixed no-repeat; }
+.bg-debug { background: url('../images/backgrounds/debug_bg.jpg') center / cover fixed no-repeat; }
+.bg-escape { background: url('../images/backgrounds/escape room bg.jpeg') center / cover fixed no-repeat; }
+.bg-tech-talk { background: url('../images/backgrounds/tech_talk_bg.avif') center / cover fixed no-repeat; }
+.bg-bgmi { background: url('../images/backgrounds/bgmi bg.jpg') center / cover fixed no-repeat; }
+.bg-poster { background: url('../images/backgrounds/poster bg.avif') center / cover fixed no-repeat; }
+
+/* Overlay utility for dark pages */
+.page-dark::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 20, 0.6);
+  z-index: 0;
+}
+.page-content { position: relative; z-index: 1; }
+
+/* Common button styles */
+.btn-primary {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: rgb(225, 227, 234);
+  color: rgb(10, 8, 8);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+/* Common card styles */
+.event-card {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Common link styles */
+.back-link {
+  margin-top: 2.5rem;
+}
+
+.back-link a {
+  color: #60a5fa;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-link a:hover {
+  color: #3b82f6;
+}
+
+/* Common section styles */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 1rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .btn-primary {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}

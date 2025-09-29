@@ -1,0 +1,373 @@
+/* ByteFest 2K25 Consolidated Stylesheet
+   Source: common.min.css + main.css
+   Note: Order preserved as [common.min.css] then [main.css] so page-specific
+   overrides from main.css can take precedence where applicable. */
+
+/* ===== Begin: common.min.css ===== */
+.notice-container {width: 100%;max-width: 800px;margin: auto;border-radius: 10px;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);z-index: 1} .notice-container h2 {color: #fff;margin: 0;padding: 10px;text-align: center;font-size: 1.2rem} .notice-wrapper {width: 100%;overflow: hidden;white-space: nowrap;position: relative;height: 40px;display: flex;align-items: center;opacity: 1} .notice-track {display: inline-block;white-space: nowrap;animation: scrollLeft 20s linear infinite;font-size: 1rem;padding-left: 100%} .notice-track span {margin-right: 50px} @keyframes scrollLeft {0% {transform: translateX(0)} 100% {transform: translateX(-100%)} } #footer_rights {align-items: center} body, html {height: 100%;margin: 0;font-family: 'Inter', sans-serif;color: white;overflow-x: hidden} body::before {content: "";position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 20, 0.7);z-index: 0} .content-wrapper {position: relative;z-index: 1;padding: 2rem} .bg-overview {background: url('../images/backgrounds/Overview_bg.jpg') center / cover no-repeat fixed;min-height: 100vh;position: relative} .bg-schedule {background: url('../images/backgrounds/hilights_bg.jpg') center / cover no-repeat fixed;min-height: 100vh;position: relative} .bg-highlights {background: url('../images/backgrounds/highlights_bg.jpeg') center / cover no-repeat fixed;min-height: 100vh;position: relative} .bg-overview::before, .bg-schedule::before {content: '';position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0, 0, 0, 0.75);z-index: 1} .bg-overview > *, .bg-schedule > * {position: relative;z-index: 2} .bg-contact {background: url('https://img.freepik.com/premium-vector/cyber-digital-background-furturistic-technology-game-tech-background-technology-event-post_991099-103.jpg') center / cover no-repeat fixed;min-height: 100vh} .section-overlay {pointer-events: none} .bg-overview [data-aos], .bg-schedule [data-aos] {opacity: 1 !important;transform: none !important} .link-accent {color: #60a5fa} .link-accent:hover {color: #3b82f6} .content-narrow {max-width: 900px;margin: 2rem auto 4rem auto;padding: 0 1rem;position: relative;z-index: 1} .highlight-card {transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);transform-origin: center} .highlight-card:hover {transform: translateY(-12px) scale(1.02);box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);border-color: rgba(59, 130, 246, 0.5)} .highlight-card:hover .group-hover\:scale-105 {transform: scale(1.1)} .highlight-card img {transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)} .btn-primary {transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);position: relative;overflow: hidden} .btn-primary::before {content: '';position: absolute;top: 0;left: -100%;width: 100%;height: 100%;background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);transition: left 0.5s} .btn-primary:hover::before {left: 100%} .btn-primary:hover {transform: translateY(-2px);box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2)} body, html {height: 100%;margin: 0;font-family: 'Inter', sans-serif;color: white;overflow-x: hidden} .page-header {text-align: center;margin-bottom: 2rem} .page-header-title {font-size: 2.5rem;font-weight: 700;margin-bottom: 0.3rem;text-shadow: 0 0 8px rgba(0,0,0,0.8)} .page-header-subtitle {color: #dcdcdc;font-size: 1.25rem;font-weight: 500;text-shadow: 0 0 6px rgba(0,0,0,0.7)} .panel {background: rgba(10, 10, 40, 0.3);border-radius: 1rem;padding: 2rem 2.5rem;box-shadow: 0 0 15px rgba(0,0,0,0.5);line-height: 1.6;color: #d1d5db} .panel h2 {color: #a5b4fc;font-weight: 700;margin-top: 1.5rem;margin-bottom: 0.5rem;font-size: 1.5rem;text-shadow: none} .panel p, .panel ul {margin-bottom: 1rem;font-size: 1.1rem} .panel ul {padding-left: 1.5rem;list-style-type: disc} @media (max-width: 768px) {.panel {padding: 1.5rem 1.5rem} .page-header-title {font-size: 2rem} .page-header-subtitle {font-size: 1rem} } .bg-hackathon {background: url('../images/backgrounds/hackathon_bg.jpg') center / cover fixed no-repeat} .bg-coding {background: url('../images/backgrounds/coding_bg.jpg') center / cover fixed no-repeat} .bg-debate {background: url('../images/backgrounds/debate_bg.jpg') center / cover fixed no-repeat} .bg-debug {background: url('../images/backgrounds/debug_bg.jpg') center / cover fixed no-repeat} .bg-escape {background: url('../images/backgrounds/escape room bg.jpeg') center / cover fixed no-repeat} .bg-tech-talk {background: url('../images/backgrounds/tech_talk_bg.avif') center / cover fixed no-repeat} .bg-bgmi {background: url('../images/backgrounds/bgmi bg.jpg') center / cover fixed no-repeat} .bg-poster {background: url('../images/backgrounds/poster bg.avif') center / cover fixed no-repeat} .page-dark::before {content: "";position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 20, 0.6);z-index: 0} .page-content {position: relative;z-index: 1} .btn-primary {display: inline-block;padding: 15px 30px;font-size: 18px;background-color: rgb(225, 227, 234);color: rgb(10, 8, 8);text-decoration: none;border-radius: 8px;font-weight: bold;transition: transform 0.3s ease} .btn-primary:hover {transform: scale(1.05)} .event-card {background: rgba(0, 0, 0, 0.6);padding: 1.5rem;border-radius: 0.75rem;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);transition: transform 0.3s ease, box-shadow 0.3s ease} .event-card:hover {transform: translateY(-4px);box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2)} .back-link {margin-top: 2.5rem} .back-link a {color: #60a5fa;font-weight: 600;text-decoration: none;transition: color 0.3s ease} .back-link a:hover {color: #3b82f6} .section-title {font-size: 2.5rem;font-weight: bold;margin-bottom: 1rem;text-align: center} .section-subtitle {font-size: 1.25rem;color: #d1d5db;margin-bottom: 2rem;text-align: center} @media (max-width: 768px) {.content-wrapper {padding: 1rem} .section-title {font-size: 2rem} .btn-primary {padding: 12px 24px;font-size: 16px} }
+/* ===== End: common.min.css ===== */
+
+/* ===== Begin: main.css ===== */
+/* Main CSS for ByteFest 2K25 */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+  background-color: #f9fafb;
+}
+
+* {
+  box-sizing: border-box
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from { opacity: .4 }
+  to   { opacity: 1 }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #3b82f6;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../images/backgrounds/bg_1.jpg');
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.highlight-card {
+  transform: translateY(0) scale(1);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, filter .35s ease;
+  will-change: transform, box-shadow, filter;
+}
+.highlight-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  filter: saturate(1.1) contrast(1.05);
+}
+
+.schedule-item { position: relative; }
+.schedule-item::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.schedule-item::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background-color: #e5e7eb;
+  left: -1px;
+  top: 50%;
+  z-index: 0;
+}
+.schedule-item:first-of-type::after { height: 50%; top: 50%; }
+.schedule-item:last-of-type::after  { height: 50%; top: 0; }
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile menu styles */
+.mobile-menu { 
+  transition: transform 0.3s ease; 
+  transform: translateX(100%); 
+}
+.mobile-menu.active { 
+  transform: translateX(0); 
+}
+
+/* Mobile menu links - force white color */
+.mobile-menu a {
+  color: white !important;
+}
+
+.mobile-menu a:hover {
+  color: #3b82f6 !important;
+}
+
+/* Animation for countdown */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.countdown-item { animation: pulse 2s infinite; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+
+/* Scrolling animation */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Optional: update map container look */
+#venue-map,
+#map-section .map-container { background: #1f2937; border-radius: 8px; overflow: hidden; }
+
+@keyframes scheduleBgSlideshow {
+  0% { background-image: url('../images/backgrounds/hilights_bg.jpg'); }
+}
+.schedule-bg-animate { animation: scheduleBgSlideshow 20s infinite ease-in-out; background-size: cover; background-position: center; }
+
+#clglogo { height: 200px; width: 200px; }
+
+/* Fix for mobile nav background */
+#mobileNav.mobile-nav-style { background-color: white; box-shadow: 0 4px 6px rgba(246, 244, 244, 0.1); }
+/* Ensure mobile nav text remains visible */
+#mobileNav.mobile-nav-style a { color: #eceef2; }
+#mobileNav.mobile-nav-style a:hover { color: #2563EB; }
+/* ===== End: main.css ===== */
+
+/* ===== Visual FX: Digital Nexus Theme Additions ===== */
+/* Transparent-to-glass navbar */
+.nav-transparent { background: transparent; }
+.nav-glass {
+  background: rgba(12, 14, 28, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+/* Glassmorphism and glowing borders for highlight cards */
+.highlight-card {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+}
+.highlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(96,165,250,0.35), rgba(96,165,250,0.35), rgba(96,165,250,0.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.highlight-card:hover::after { opacity: 1; }
+
+/* Elevated glass panels (contact cards, etc.) */
+.card-panel {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  position: relative;
+  z-index: 10;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.card-panel:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  border-color: rgba(59, 130, 246, 0.6);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Animated gradient for buttons */
+.btn-primary {
+  background: linear-gradient(45deg, #2563eb, #1d4ed8, #1e40af);
+  background-size: 200% 200%;
+  color: #fff;
+  border: none;
+  animation: gradientShift 8s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Parallax layers removed - clean backgrounds only */
+
+/* Custom cursor */
+body { cursor: none; }
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #93c5fd 0%, #3b82f6 60%, transparent 61%);
+  box-shadow: 0 0 20px 6px rgba(59,130,246,0.45), 0 0 40px 12px rgba(59,130,246,0.25);
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+}
+
+/* Decode/glitch text effect base state */
+[data-decode] { position: relative; }
+
+/* Schedule SVG line styling */
+.schedule-line {
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  pointer-events: none;
+}
+.schedule-line path {
+  stroke: rgba(96,165,250,0.8);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px rgba(96,165,250,0.6));
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* Removed animated gradient overlays - keeping clean backgrounds */
+
+
+
+/* ===== Global Particles.js container (fixed across all pages/sections) ===== */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* above overlays, below content */
+  pointer-events: none;
+}
+
+/* ===== Canvas cursor effects for sections ===== */
+#canvas-overview,
+#canvas-highlights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
