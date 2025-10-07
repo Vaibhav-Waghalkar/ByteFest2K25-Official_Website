@@ -371,3 +371,6 @@ body { cursor: none; }
   opacity: 0.8;
 }
 
+/* Page-specific background: Free Fire */
+.bg-freefire {background: url('../images/backgrounds/free-fire-bg.jpg') center / cover fixed no-repeat}
+
